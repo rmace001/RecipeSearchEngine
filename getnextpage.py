@@ -3,6 +3,15 @@ from bs4 import BeautifulSoup
 from glob import glob
 from os.path import join
 from urllib.parse import urljoin
+def get_all_cuisne(url):
+    html_content = requests.get(url).text
+    soup = BeautifulSoup(html_content, 'html.parser')
+    save_temp = []
+    for item in soup.find_all("ul",class_="c-category-flex__nav-listing"):
+        for a in item.find_all('a',{'href':True}):
+            save_temp.append(a['href'])
+    return(save_temp)
+    
 def get_the_link_cuisine(url):
     linklist = []
     html_content = requests.get(url).text
@@ -10,7 +19,6 @@ def get_the_link_cuisine(url):
     pageURL = url + "?page="
     with requests.Session() as session:
         page_number = 1
-        # url = 'https://securityadvisories.paloaltonetworks.com/Home/Index/?page='
         # url = 'https://www.seriouseats.com/recipes/topics/cuisine/american?page='
         while True:
             next_l = None
@@ -27,5 +35,16 @@ def get_the_link_cuisine(url):
             pageURL = urljoin(url, next_l)
             page_number += 1
     return linklist
-url = "https://www.seriouseats.com/recipes/topics/cuisine/american"
-print(get_the_link_cuisine(url))
+
+# baseurl = "https://www.seriouseats.com/recipes/topics/cuisine/"
+# cusineurl = baseurl + "American"
+# print(cusineurl)
+# print(get_the_link_cuisine(cusineurl))
+main_cuisne_menu = 'https://www.seriouseats.com/recipes/topics/cuisine'
+cusineurl_list = get_all_cuisne(main_cuisne_menu)
+# print(cusineurl_list)
+main_list = []
+for cusine_name in cusineurl_list:
+    main_list.append(get_the_link_cuisine(cusine_name))
+    print(get_the_link_cuisine(cusine_name))
+# print(main_list) [ [American page],[british page] .... ]
