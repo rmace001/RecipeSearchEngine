@@ -132,5 +132,6 @@ for i in main_list:
         while len(recipeUrls) > 0:
             url = recipeUrls.pop(0)
             arrayofPageData.append(getWebData(url))
+print(len(arrayofPageData))
 with open('data.json', 'w') as outfile:
     json.dump(arrayofPageData, outfile)
