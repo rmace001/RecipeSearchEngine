@@ -1,0 +1,27 @@
+# Ubuntu 18.04 BIONIC BEAVER
+    1  sudo apt-get install openjdk-8-jre-headless -y
+    2  sudo apt-get install openjdk-8-jdk-headless -y
+    3  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+    4  sudo apt-get install apt-transport-https
+    5  echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+    6  sudo apt-get update && sudo apt-get install elasticsearch
+    7  sudo vim /etc/elasticsearch/elasticsearch.yml
+    8  sudo /bin/systemctl daemon-reload
+    9  sudo /bin/systemctl enable elasticsearch.service
+   10  sudo /bin/systemctl start elasticsearch.service
+   11  sudo apt install curl
+   12  curl 127.0.0.1:9200
+   13  curl -XPUT 127.0.0.1:9200/webdocs --data-binary @dummy.json
+   14  curl -H 'Content-Type: application/json' -X POST 'localhost:9200/webdocs/doc/_bulk?pretty' --data-binary @dummy.json
+   15  curl -X GET 127.0.0.1:9200/_cat/indices?v
+   16  curl -X GET localhost:9200/_search?q=riverside
+   17  curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/webdocs/_search?pretty' -d '
+       {
+       "query": {
+       "query_string" : {
+       "query" : "riverside"
+       }
+       }
+       }' > out.json
+   18  fg
+   19  history > hist.txt
