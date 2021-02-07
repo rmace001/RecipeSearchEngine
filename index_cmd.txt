@@ -6,6 +6,7 @@
     5  echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
     6  sudo apt-get update && sudo apt-get install elasticsearch
     7  sudo vim /etc/elasticsearch/elasticsearch.yml
+       # EDIT AND UNCOMMENT network.host: 0.0.0.0
     8  sudo /bin/systemctl daemon-reload
     9  sudo /bin/systemctl enable elasticsearch.service
    10  sudo /bin/systemctl start elasticsearch.service
