@@ -1,0 +1,401 @@
+    1  ls
+    2  shutdown -P now
+    3  ls
+    4  git clone ls
+    5  ls
+    6  git clone https://github.com/CS172-UCR/finalproject-lightsabr.git
+    7  ls
+    8  cd finalproject-lightsabr/
+    9  ls
+   10  git checkout -b rmace001/data-cleaning
+   11  ls
+   12  git status
+   13  git push orign -u rmace001/data-cleaning 
+   14  git push -u origin rmace001/data-cleaning 
+   15  shutdown -P now
+   16  ls
+   17  shutdown -P now
+   18  sudo apt-get install openjdk-8-jre-headless -y
+   19  ls
+   20  sudo apt-get install openjdk-8-jdk-headless -y
+   21  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+   22  sudo apt-get install apt-transport-https
+   23  echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+   24  sudo apt-get update && sudo apt-get install elasticsearch
+   25  sudo vi /etc/elasticsearch/elasticsearch.yml
+   26  sudo /bin/systemctl daemon-reload
+   27  sudo /bin/systemctl enable elasticsearch.service
+   28  sudo /bin/systemctl start elasticsearch.service
+   29  curl 127.0.0.1:9200
+   30  wget http://media.sundog.soft.com/es/shakes-mapping.json
+   31  ls
+   32  curl -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
+   33  ls
+   34  rm shakes-mapping.json 
+   35  ls
+   36  wget http://media.sundog-soft.com/es6/shakes-mapping.json
+   37  curl -H 'Content-Type: application/json' -XPUT 127.0.0.1:9200/shakespeare --data-binary @shakes-mapping.json
+   38  wget http://media.sundog-soft.com/es6/shakespeare_6.0.json
+   39  ls
+   40  curl -H 'Content-Type: application/json' -X POST 'localhost:9200/shakespeare/doc/_bulk?pretty' --data-binary @shakespeare_6.0.json
+   41  ls
+   42  ll
+   43  shutdown -P now
+   44  ls
+   45  
+   46  ls
+   47  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   48  {
+   49  "query" : {
+   50  "match_phrase" : {
+   51  "text_entry" : "to be or not to be"
+   52  }
+   53  }
+   54  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   55  { "query" : {; "match_phrase" : {; "text_entry" : "to be or not to be"; }
+   56  }
+   57  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   58  {
+   59  "query" : {
+   60  "match_phrase" : {
+   61  "text_entry" : "to be or not to be"
+   62  }
+   63  }
+   64  }
+   65  '
+   66  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   67  {
+   68  "query" : {
+   69  "match_phrase" : {
+   70  "text_entry" : "to be or not to be"
+   71  }
+   72  }
+   73  }'
+   74  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   75  { "query" : {; "match_phrase" : {; "text_entry" : "to be or not to be"; }
+   76  }
+   77  '
+   78  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   79  {
+   80  "query": {
+   81  "match_phrase": {
+   82  "text_entry": "to be or not to be"
+   83  }
+   84  }
+   85  }'
+   86  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   87  { "query": {; "match_phrase": {; "text_entry": "to be or not to be"; }
+   88  }
+   89  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   90  {
+   91  "query": {
+   92  "match_phrase": {
+   93  "text_entry": "to be or not to be"
+   94  }
+   95  }
+   96  }'
+   97  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   98  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+   99  {
+  100  "query": {
+  101  "match_phrase": {
+  102  "text_entry": "to be or not to be"
+  103  }
+  104  }
+  105  }
+  106  '
+  107  '
+  108  curl -H "Content-Type: application/json' -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+  109  curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+  110  {
+  111  "query": {
+  112  "match_phrase": {
+  113  "text_entry": "to be or not to be"
+  114  }
+  115  }
+  116  }'
+  117  curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/shakespeare/_search?pretty' -d '
+  118  {
+  119  "query": {
+  120  "match_phrase" : {
+  121  "text_entry" : "to be or not to be"
+  122  }
+  123  }
+  124  }' > output.json
+  125  ls
+  126  cat output.json
+  127  ls
+  128  mv output.json finalproject-lightsabr/
+  129  ls
+  130  cd finalproject-lightsabr/
+  131  git branch
+  132  ls
+  133  git add output.json
+  134  git commit -m "Obtain Sample JSON Output from ElasticSearch"
+  135  git config --global user.email "rmace001@ucr.edu"
+  136  git config --global user.name "Rogelio Macedo"
+  137  git commit -m "Obtain Sample JSON Output from ElasticSearch"
+  138  git push origin rmace001/data-cleaning 
+  139  ls
+  140  cd ..
+  141  ls
+  142  cat shakespeare_6.0.json 
+  143  ls
+  144  shutdown -P now
+  145  ls
+  146  cat shakespeare_6.0.json 
+  147  ls
+  148  cd finalproject-lightsabr/
+  149  ls
+  150  cat output.json 
+  151  ls
+  152  cd ..
+  153  ls
+  154  cd ..
+  155  ls
+  156  cd rogith/
+  157  ls
+  158  shutdown -P now
+  159  sudo apt-get install openssh-server
+  160  shutdown -P now
+  161  ls
+  162  curl 127.0.0.1:9200
+  163  ls
+  164  curl 127.0.0.1:9200
+  165  ls
+  166  pwd
+  167  mkdir bin
+  168  cd bin/
+  169  ls
+  170  pwd
+  171  vi curl
+  172  vi curl 
+  173  chmod a+x curl
+  174  cd ..
+  175  which curl
+  176  pwd
+  177  which curl
+  178  curl 127.0.0.1:9200
+  179  ls
+  180  which curl
+  181  cd bin/
+  182  ls
+  183  vi curl 
+  184  ls
+  185  cd ..
+  186  curl -H "Content-Type: application/json" -XPUT 127.0.0.1:9200/movies -d '
+  187  {
+  188      "mappings" : {
+  189          "movie" : { 
+  190              "properties" : {
+  191                  "year" : { "type" : "date" }
+  192              }
+  193          }
+  194      }
+  195  }'
+  196  curl -H "Content-Type: application/json" -XPUT 
+  197  curl -H "Content-Type: application/json" -XGET 127.0.0.1:9200/movies/_mapping/movie?pretty
+  198  wget http://media.sundog-soft.com/es/movies.json
+  199  cat movies.json 
+  200  curl -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
+  201  curl -H "Content-Type: application/json" -XPUT 127.0.0.1:9200/_bulk?pretty --data-binary @movies.json
+  202  curl -H "Content-Type: application/json" -XGET 127.0.0.1:9200/movies/_search?pretty
+  203  ls
+  204  hostname -I
+  205  shutdown -P now
+  206  ls
+  207  elasticsearch --verison
+  208  elasticsearch --version
+  209  curl 127.0.0.1:9200
+  210  curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/movies/_search?pretty' -d'
+  211  {
+  212      "query": {
+  213          "match_all": {}
+  214      }
+  215  }
+  216  '
+  217  curl -X GET "127.0.0.1:9200/_search" -H 'Content-Type: application/json' -d'
+  218  {
+  219      "query": {
+  220          "match_all": {}
+  221      }
+  222  }
+  223  '
+  224  cat movies.json 
+  225  which curl
+  226  curl -XGET 127.0.0.1:9200/movies/movie?pretty -d'
+  227  shutdown -P now
+  228  curl -XGET 127.0.0.1:9200/_search -d'
+  229  {
+  230      "query"; {
+  231  "match_all":{}
+  232  }
+  233  }
+  234  '
+  235  curl -XGET 127.0.0.1:9200/_search -d'
+  236  {
+  237      "query": {
+  238  "match_all":{}
+  239  }
+  240  }
+  241  '
+  242  curl movies/-XGET 127.0.0.1:9200/_search -d'
+  243  {
+  244      "query": {
+  245  "match_all":{}
+  246  }
+  247  }
+  248  '
+  249  curl movies/-XGET 127.0.0.1:9200/_search -d'
+  250  {
+  251      "query": {
+  252  "match_all":{}
+  253  }
+  254  }
+  255  '
+  256  shutdown -P now
+  257  curl -XDELETE 127.0.0.1:9200/movies
+  258  LS
+  259  ld
+  260  ls
+  261  curl -XDELETE 127.0.0.1:9200/shakespear
+  262  curl -XDELETE 127.0.0.1:9200/shakespeare
+  263  curl -XGET 127.0.0.1:9200/_cat/indices?v
+  264  ls
+  265  cd finalproject-lightsabr/
+  266  ls
+  267  git pull
+  268  ls
+  269  vim level1and2bulkformat.json 
+  270  ls
+  271  cd ..
+  272  ls
+  273  pwd
+  274  cd finalproject-lightsabr/
+  275  cp level1and2bulkformat.json /home/rogith
+  276  cd ..
+  277  ls
+  278  curl -X POST 127.0.0.1:9200/_bulk --data-binary @level1and2bulkformat.json 
+  279  curl -XDELETE 127.0.0.1:9200/webdocs
+  280  curl -XGET 127.0.0.1:9200/_cat/indices?v
+  281  curl -X POST 127.0.0.1:9200/_bulk --data-binary @level1and2bulkformat.json 
+  282  curl -XGET 127.0.0.1:9200/webdocs/_search?pretty
+  283  shutdown -P now
+  284  ls
+  285  curl -X DELETE 127.0.0.1:9200/webdocs
+  286  curl -X GET 127.0.0.1:9200/indices?v
+  287  curl -X GET 127.0.0.1:9200/_cat/indices?v
+  288  curl -X POST 127.0.0.1:9200 --data-binary @all_crawed_data.json 
+  289  curl -X PUT 127.0.0.1:9200 --data-binary @all_crawed_data.json 
+  290  curl -X PUT 127.0.0.1:9200/_bulk --data-binary @all_crawed_data.json 
+  291  ls
+  292  shutdown -P now
+  293  ls
+  294  shutdown -P now
+  295  ls
+  296  curl -X PUT 127.0.0.1:9200 --data-binary @all_crawed_data_updated.json 
+  297  curl -X PUT 127.0.0.1:9200/_bulk --data-binary @all_crawed_data_updated.json 
+  298  ls
+  299  ls
+  300  curl -X DELETE 127.0.0.1:9200/webdocs
+  301  curl
+  302  curl -X DELETE 127.0.0.1:9200/webdocs
+  303  curl -X GET 127.0.0.1:9200/_cat/indices?v
+  304  ls
+  305  rm all_crawed_data.json 
+  306  ls
+  307  shutdown -P now
+  308  ls
+  309  shutdown -P now
+  310  cd finalproject-lightsabr/
+  311  ls
+  312  cd FrontEnd-master/
+  313  git branch
+  314  ls
+  315  cd views/
+  316  ls
+  317  git status
+  318  git add example.words.js 
+  319  git commit -m "add example words"
+  320  git push origin rmace001/word-cloud 
+  321  git add example.words.js 
+  322  git commit -m "Modify file with correct data"
+  323  git push origin rmace001/word-cloud 
+  324  git status
+  325  git add d3.wordcloud.js 
+  326  git commit -m "Add possible necesarry file"
+  327  git push origin rmace001/word-cloud 
+  328  ls
+  329  pwd
+  330  cd ..
+  331  pwd
+  332  D
+  333  ls
+  334  cd views/
+  335  mv d3.wordcloud.js 
+  336  ls
+  337  mv d3.wordcloud.js FrontEnd-master/
+  338  mv d3.wordcloud.js home/rogith/finalproject-lightsabr/FrontEnd-master
+  339  cd ..
+  340  ls
+  341  git status
+  342  cd views/
+  343  ls
+  344  cd ..
+  345  ls
+  346  git status
+  347  git rm views/d3.wordcloud.js 
+  348  git add d3.wordcloud.js 
+  349  git add lib/
+  350  git commit -m "try these files'
+  351  git commit -m "try these files"
+  352  ls
+  353  git push origin rmace001/word-cloud 
+  354  git pull
+  355  cd finalproject-lightsabr/
+  356  ls
+  357  cd FrontEnd-master/
+  358  shutdown -P now
+  359  curl 127.0.0.1:9200
+  360  shutdown -P now
+  361  curl 127.0.0.1:8200
+  362  curl 127.0.0.1:9200
+  363  shutdown -P now
+  364  ls
+  365  pwd
+  366  shutdown -P now
+  367  ls
+  368  cd finalproject-lightsabr/s
+  369  ls
+  370  curl 127.0.0.1:9200
+  371  cd
+  372  shutdown -P now
+  373  ls
+  374  curl 127.0.0.1:9200
+  375  cd finalproject-lightsabr/
+  376  curl 127.0.0.1:9200
+  377  ls
+  378  cd ..
+  379  ls
+  380  curl 127.0.0.1:9200
+  381  gnome-session-quit
+  382  shutdown -p now
+  383  shutdown -P now
+  384  ls
+  385  clear
+  386  ls
+  387  curl 127.0.0.1:9200
+  388  shutdown -P now
+  389  clear
+  390  curl 127.0.0.1:9200
+  391  clear
+  392  curl 127.0.0.1:9200
+  393  clear
+  394  shutdown -P now
+  395  clear
+  396  ls
+  397  curl 127.0.0.1:9200
+  398  shutdown -P now
+  399  curl 127.0.0.1:9200
+  400  ls
+  401  history > commandHistory.txt
