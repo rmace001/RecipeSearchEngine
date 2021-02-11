@@ -35,7 +35,7 @@ def main():
             "direction": item["direction"],
             "ingredients": item["ingredients"]
         }
-        outS += json.dumps(create, indent=4) + "\n" + json.dumps(out, indent=4) + "\n"
+        outS += json.dumps(create) + "\n" + json.dumps(out) + "\n"
         pageNum += 1
 
     ofname = os.path.abspath(
@@ -44,6 +44,7 @@ def main():
             "ofile.txt"
         )
     )
+    outS = outS[:-1]
     of = open(ofname, 'w')
     of.write(outS)
     of.close()
