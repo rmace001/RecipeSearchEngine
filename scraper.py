@@ -103,12 +103,17 @@ def getWebData(url,pagenumber):
         pageData['notes'] = 'None'
     if soup.find('ul', class_='recipe-about') != None:
         recipeAbout = soup.find('ul', class_='recipe-about')
-        timeInfo = recipeAbout.find_all('span', class_='info')
-        if len(timeInfo) > 0:
-            pageData['activeTime'] = timeInfo[len(timeInfo) - 2].text
-            pageData['totalTime'] = timeInfo[len(timeInfo) - 1].text
-        else:
+        liTags = recipeAbout.find_all("li")
+        for i in range(len(liTags)):
+            if "Active time" in liTags[i].find('span').text:
+                time = liTags[i].find("span", class_="info")
+                pageData['activeTime'] = time.text
+            elif "Total time" in liTags[i].find('span').text:
+                time = liTags[i].find("span", class_="info")
+                pageData['totalTime'] = time.text
+        if "activeTime" not in pageData:
             pageData['activeTime'] = 'None'
+        if  "totalTime" not in pageData:
             pageData['totalTime'] = 'None'
     else:
         pageData['totalTime'] = 'None'
