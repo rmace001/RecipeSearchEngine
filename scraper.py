@@ -210,7 +210,7 @@ for i in main_list: # get the all page of cusine
         for item in futures:
             # print(item.result())
             arrayofPageData.append(item.result())
-        #===================================p==============
+        #===================================multiprocessing==============
         #===================================normal=======================
         # while len(recipeUrls) > 0:
         #     url = recipeUrls.pop(0)
