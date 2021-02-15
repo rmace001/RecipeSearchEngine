@@ -16,11 +16,11 @@ curl -XPUT 127.0.0.1:9200/webdocs --data-binary @dummy.json
 curl -H 'Content-Type: application/json' -X POST 'localhost:9200/webdocs/doc/_bulk?pretty' --data-binary @dummy.json
 curl -X GET 127.0.0.1:9200/_cat/indices?v
 curl -X GET localhost:9200/_search?q=riverside
-curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/webdocs/_search?pretty' -d '
+curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/recipes/_search?pretty' -d '
 {
 "query": {
 "query_string" : {
-"query" : "riverside"
+"query" : "chinese"
 }
 }
 }' > out.json
