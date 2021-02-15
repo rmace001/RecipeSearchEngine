@@ -5,6 +5,8 @@ from glob import glob
 from os.path import join
 from urllib.parse import urljoin
 import os
+import time
+from time import perf_counter
 total_memory = 0
 
 def get_all_cuisne(url):
@@ -149,6 +151,8 @@ def getWebData(url,pagenumber):
 # cusineurl = baseurl + "American"
 # print(cusineurl)
 # print(get_the_link_cuisine(cusineurl))
+t0 = time.time()
+start = perf_counter()
 main_cuisne_menu = 'https://www.seriouseats.com/recipes/topics/cuisine'
 cusineurl_list = get_all_cuisne(main_cuisne_menu) # save level 1 html inside, get the link of level2
 # print(cusineurl_list)
@@ -197,6 +201,10 @@ for i in main_list: # get the all page of cusine
             arrayofPageData.append(getWebData(url,page3))
             page3 += 1 
 # print(len(arrayofPageData))
+t1 = time.time()
+end = perf_counter()
+print("web crawling spend (time.time): ", t1-t0)
+print("web crawling spend (time.clock): ", end-start)
 print("web crawling reach memory: ", total_memory)
 print("web crawling reach page: ", page2 + page3 +1 )
 with open('data.json', 'w') as outfile:
