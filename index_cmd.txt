@@ -11,11 +11,13 @@ sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
 sudo /bin/systemctl start elasticsearch.service
 sudo apt install curl
+# Check Elasticsearch
 curl 127.0.0.1:9200
-curl -XPUT 127.0.0.1:9200/webdocs --data-binary @dummy.json
-curl -H 'Content-Type: application/json' -X POST 'localhost:9200/webdocs/doc/_bulk?pretty' --data-binary @dummy.json
+curl -H 'Content-Type: application/json' -X POST 'localhost:9200/webdocs/doc/_bulk?pretty' --data-binary @data.json
+# View indices
 curl -X GET 127.0.0.1:9200/_cat/indices?v
-curl -X GET localhost:9200/_search?q=riverside
+# Ugly search (don't use)
+curl -X GET localhost:9200/_search?q=chinese
 curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/recipes/_search?pretty' -d '
 {
 "query": {
@@ -25,4 +27,6 @@ curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/recipes/_search?p
 }
 }' > out.json
 fg
-history > hist.txt
+
+# Delete index:
+curl -X DELETE 127.0.0.1:9200/recipes
