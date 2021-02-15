@@ -38,10 +38,11 @@ def main():
         outS += json.dumps(create) + "\n" + json.dumps(out) + "\n"
         pageNum += 1
 
+    outS += '\n'
     ofname = os.path.abspath(
         os.path.join(
             os.getcwd(),
-            "ofile.txt"
+            "ofile.json"
         )
     )
     outS = outS[:-1]
