@@ -7,8 +7,11 @@ from urllib.parse import urljoin
 import os
 import time
 from time import perf_counter
-total_memory = 0
 
+import concurrent.futures
+import multiprocessing
+total_memory = 0
+total_page = 1
 def get_all_cuisne(url):
     global total_memory 
     html_content = requests.get(url).text
@@ -60,9 +63,10 @@ def get_the_link_cuisine(url): # read level 1 get level 2 link
             page_number += 1
     return linklist
 
-def getWebData(url,pagenumber):
+def getWebData(url):
     
     # =========================download=============
+    global total_page
     global total_memory 
     source = requests.get(url).text
     soup = BeautifulSoup(source, 'html.parser')
@@ -71,7 +75,8 @@ def getWebData(url,pagenumber):
     except:
         pass
     html_download = soup.prettify()
-    filename = "web_" +  str(pagenumber) 
+    total_page += 1
+    filename = "web_" +  str(total_page) 
     with open('data/'+ 'level3'+"/" + filename, "w") as f:
                 f.write(url)
                 f.write("\n")
@@ -162,11 +167,12 @@ for cusine_name in cusineurl_list:
 # print(main_list)
 
 arrayofPageData = []
+futures = {}
 try:
     os.makedirs('data/'+ 'level3' +"/")
 except:
     pass
-page3 = 1 # for all page in level 3 which the recipe web page
+# for all page in level 3 which the recipe web page
 page2 = 0
 try:
     os.makedirs('data/'+ 'level2' +"/")
@@ -196,16 +202,26 @@ for i in main_list: # get the all page of cusine
         s = soup.find_all("script", type="application/ld+json")
         js = json.loads(s[len(s) - 1].text)
         recipeUrls = [i["url"] for i in js["itemListElement"]]
-        while len(recipeUrls) > 0:
-            url = recipeUrls.pop(0)
-            arrayofPageData.append(getWebData(url,page3))
-            page3 += 1 
+        #===================================multiprocessing==============
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            m = multiprocessing.Manager()
+            futures = {executor.submit(getWebData, url) for url in recipeUrls}
+            concurrent.futures.wait(futures,timeout = 10)
+        for item in futures:
+            # print(item.result())
+            arrayofPageData.append(item.result())
+        #===================================p==============
+        #===================================normal=======================
+        # while len(recipeUrls) > 0:
+        #     url = recipeUrls.pop(0)
+        #     arrayofPageData.append(getWebData(url,page3))
+        #     page3 += 1 
 # print(len(arrayofPageData))
 t1 = time.time()
 end = perf_counter()
 print("web crawling spend (time.time): ", t1-t0)
 print("web crawling spend (time.clock): ", end-start)
 print("web crawling reach memory: ", total_memory)
-print("web crawling reach page: ", page2 + page3 +1 )
+print("web crawling reach page: ", page2 + total_page +1 )
 with open('data.json', 'w') as outfile:
     json.dump(arrayofPageData, outfile)
