@@ -13,7 +13,7 @@ sudo /bin/systemctl start elasticsearch.service
 sudo apt install curl
 # Check Elasticsearch
 curl 127.0.0.1:9200
-curl -H 'Content-Type: application/json' -X POST 'localhost:9200/webdocs/doc/_bulk?pretty' --data-binary @data.json
+curl -H 'Content-Type: application/json' -X POST 'localhost:9200/recipes/doc/_bulk?pretty' --data-binary @ofile.json
 # View indices
 curl -X GET 127.0.0.1:9200/_cat/indices?v
 # Ugly search (don't use)
