@@ -22,7 +22,7 @@ curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/recipes/_search?p
 {
 "query": {
 "query_string" : {
-"query" : "chinese"
+"query" : "wok"
 }
 }
 }' > out.json
@@ -30,3 +30,14 @@ fg
 
 # Delete index:
 curl -X DELETE 127.0.0.1:9200/recipes
+
+# Query field (haven't figured out activeTime query)
+curl -H "Content-Type: application/json" -XGET '127.0.0.1:9200/recipes/_search?pretty' -d '
+{
+"query": {
+"term" : {
+"specialEquipment" : "wok"
+}
+}
+}' > out.json
+
