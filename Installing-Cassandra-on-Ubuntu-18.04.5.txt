@@ -58,3 +58,8 @@ select links from recipes.recipetable WHERE key = 'Pumpkin';
 
 exit
 
+
+# check datacenter and contact points:
+nodetool status
+
+`
