@@ -34,3 +34,28 @@ sudo service cassandra stop
 sudo service cassandra status
 sudo service cassandra start
 npm start
+
+how to import CSV table.csv
+cqlsh 
+create keysapce of recipes 
+cqlsh.> CREATE KEYSPACE recipes WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+cqlsh> use recipes;
+                        EX : CREATE TABLE tablename(
+                        column1 name datatype PRIMARYKEY,
+                        column2 name data type,
+                        column3 name data type,
+                        PRIMARY KEY (column1)
+                        )
+cqlsh:recipes> CREATE TABLE recipetable(
+   key text,
+   links text,
+   PRIMARY KEY (key)
+   );
+                        EX: COPY cycling.cyclist_catgory FROM 'cyclist_category.csv' WITH DELIMITER='|' AND HEADER=TRUE 
+                        https://docs.datastax.com/en/dse/5.1/cql/cql/cql_using/useInsertCopyCSV.html
+// when you open the cqlsh in some /dir,
+ when you create the cvs in the same location, cqlsh will direct read the location file, so you can import CSV
+cqlsh:recipes> COPY recipetable FROM 'table.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+It should work fine, you can enter 
+cqlsh:recipes> select * from recipetable ; to see 
