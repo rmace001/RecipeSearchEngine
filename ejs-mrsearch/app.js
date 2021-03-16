@@ -28,23 +28,65 @@ app.get("/",function(req,res){
 
 app.post("/search",function(req,res){
     //testing output
-    console.log(req.body.query);
+    // console.log(req.body.query);
     var str = req.body.query;
-
-    const select = 'SELECT links FROM recipetable WHERE key = ?';
-    const params = [ str ] ;
-    var data;
-    client.execute(select, params, function (err, result) {
-        if (err) throw err
-        // console.log(result.rows[0]);
-        data = result.rows[0].links;
-        res.render("index",{ pages:data });
-    });
-
+    var lists = str.split(" ");
+    console.log(lists)
+    var i;
+    const data_ink = [];
+    const data = [];
+    const data1 = [];
+    const data2 = [];
+    // for (i = 0; i < lists.length; i++) {
+    //     const select = 'SELECT links FROM recipetable WHERE key = ?';
+    //     const params = [ lists[i] ] ;
+    //     // var data;
+    //     client.execute(select, params, function (err, result) {
+    //         if (err) throw err
+    //         console.log(result.rows[0]);
+    //         console.log(result.rows[0].links);
+    //         // var tempe = [];
+    //         // tempe = result.rows[0]
+    //         // var j = 0;
+    //         // for (j = 0; j<tempe.length;j++){
+    //         //     console.log(tempe[j])
+    //         // }
+    //         data_ink.push(result.rows[0].links);
+    //         var tempe = [];
+    //         tempe = result.rows[0].links
+    //         console.log("link list : ",tempe )
+    //         // var j = 0;
+    //         // for (j = 0; j<tempe.length;j++){
+    //         //     console.log("link", j, " is ", tempe[j])
+    //         // }
+    //         if(data_ink.length == lists.length)
+    //             res.render("index",{ pages:data_ink });
+    //     });
+    // }
+    for (i = 0; i < lists.length; i++) {
+        const select = 'SELECT * FROM doctable WHERE recipe_link = ?';
+        const params = [ lists[i] ] ;
+        client.execute(select, params, function (err, result) {
+            if (err) 
+            return console.error(err);
+            data.push(result.rows[0].recipe_title)
+            data1.push(result.rows[0].total_time)
+            data2.push(result.rows[0].active_time)
+            // console.log(data[0])
+            if(data.length == lists.length){
+                // var pages = JSON.parse('{ recipe_title : data[0], total_time : data[1] ] }');
+                // res.render("index", pages );
+                res.render("index", { 
+                    pages: [data,data1,data2] } );
+            }
+                
+        });
+    }
+    // console.log(data,data1,data2) can't save the value
 });
 
-const port = 3000;
+const port = 3002;
 
-app.listen(3000, function(){
-    console.log("server is on port 3000");
+app.listen(port, function(){
+    console.log('Express server started on port %s', this.address().port);
 });
