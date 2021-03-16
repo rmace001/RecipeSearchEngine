@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
 
 public class MapReduce {
 
-    public static class InvertedIndexNameMapper
+    public static class InvertedIndexMapper
             extends Mapper<Object, Text, Text, Text> {
 
             private Text recipe = new Text();
@@ -61,7 +61,7 @@ public class MapReduce {
     }
 
     // Reducer: compiles index
-    public static class InvertedIndexNameReducer
+    public static class InvertedIndexReducer
             extends Reducer<Text, Text, Text, Text> {
             private Text list = new Text();
 
@@ -126,8 +126,8 @@ public class MapReduce {
         job.setJarByClass(MapReduce.class);
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
-        job.setMapperClass(InvertedIndexNameMapper.class);
-        job.setReducerClass(InvertedIndexNameReducer.class);
+        job.setMapperClass(InvertedIndexMapper.class);
+        job.setReducerClass(InvertedIndexReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
         System.exit(job.waitForCompletion(true) ? 0 : 1);
