@@ -1,5 +1,6 @@
 mkdir ejs-mrsearch
 cd ejs-mrsearch/
+sudo apt-get install -y nodejs
 npm init
 # name the package or whatev
 # keep pressing enter all the way through
