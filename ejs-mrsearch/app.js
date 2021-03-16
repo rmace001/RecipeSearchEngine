@@ -37,52 +37,54 @@ app.post("/search",function(req,res){
     const data = [];
     const data1 = [];
     const data2 = [];
-    // for (i = 0; i < lists.length; i++) {
-    //     const select = 'SELECT links FROM recipetable WHERE key = ?';
-    //     const params = [ lists[i] ] ;
-    //     // var data;
-    //     client.execute(select, params, function (err, result) {
-    //         if (err) throw err
-    //         console.log(result.rows[0]);
-    //         console.log(result.rows[0].links);
-    //         // var tempe = [];
-    //         // tempe = result.rows[0]
-    //         // var j = 0;
-    //         // for (j = 0; j<tempe.length;j++){
-    //         //     console.log(tempe[j])
-    //         // }
-    //         data_ink.push(result.rows[0].links);
-    //         var tempe = [];
-    //         tempe = result.rows[0].links
-    //         console.log("link list : ",tempe )
-    //         // var j = 0;
-    //         // for (j = 0; j<tempe.length;j++){
-    //         //     console.log("link", j, " is ", tempe[j])
-    //         // }
-    //         if(data_ink.length == lists.length)
-    //             res.render("index",{ pages:data_ink });
-    //     });
-    // }
+    const data3 = [];
+    const data4 = [];
+    const data_check = [];
     for (i = 0; i < lists.length; i++) {
-        const select = 'SELECT * FROM doctable WHERE recipe_link = ?';
+        const select = 'SELECT links FROM recipetable WHERE key = ?';
         const params = [ lists[i] ] ;
+        // var data;
         client.execute(select, params, function (err, result) {
-            if (err) 
-            return console.error(err);
-            data.push(result.rows[0].recipe_title)
-            data1.push(result.rows[0].total_time)
-            data2.push(result.rows[0].active_time)
-            // console.log(data[0])
-            if(data.length == lists.length){
-                // var pages = JSON.parse('{ recipe_title : data[0], total_time : data[1] ] }');
-                // res.render("index", pages );
-                res.render("index", { 
-                    pages: [data,data1,data2] } );
+            if (err) throw err
+            console.log(result.rows[0]);
+            console.log(result.rows[0].links);
+            data_ink.push(result.rows[0].links);
+            var tempe = [];
+            tempe = result.rows[0].links
+            var te = tempe.split("'");
+            var tecount = 0;
+            for (var tecount; tecount < te.length; tecount++ ){
+                if (tecount%2 != 0){
+                    data.push(te[tecount]) // keep all link of keyword
+                }
             }
-                
+            if(data_ink.length == lists.length){ // CHECK THE ALL LINK FROM KEY WORD WE GET
+                console.log("link is here !!",data);
+                var j = 0
+                for (j = 0; j < data.length; j++) {
+                    const select = 'SELECT * FROM doctable WHERE recipe_link = ?';
+                    const params = [ data[j] ] ;
+                    client.execute(select, params, function (err1, result1) {
+                        if (err1) 
+                        return console.error(err1);
+                        data_check.push(result1.rows[0])
+                        // console.log("check here ", data[j], result1.rows[0] )
+                        data1.push(result1.rows[0].recipe_title)
+                        data2.push(result1.rows[0].total_time)
+                        data3.push(result1.rows[0].active_time)
+                        data4.push(result1.rows[0].recipe_link )
+                        if( data_check.length ==data.length){
+                            console.log("Final",data1, data2,data3,data4)
+                            res.render("index", { 
+                                pages: [data1,data2,data3,data4] } );
+                        }
+                            
+                    });
+                }
+            }
+            
         });
     }
-    // console.log(data,data1,data2) can't save the value
 });
 
 const port = 3002;
