@@ -37,7 +37,8 @@ USE recipes;
 
 # Create table
 CREATE TABLE recipetable( key text PRIMARY KEY, links list<text> );
-
+# create doctable
+CREATE TABLE doctable( recipe_link text PRIMARY KEY, recipe_title text, special_equipment text, notes text, active_time text, total_time text, direciton text, ingredients text );
 # verify that the table shows 0 rows
 select * from recipetable;
 
