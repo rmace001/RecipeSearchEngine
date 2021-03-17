@@ -31,24 +31,26 @@
       <!-- Search Results-->
 
       <ul>
-        <% for(var j=0; j< 4; j++) { %>
-          <% for(var i=0; i < pages.length; i++) { %>
-            <div class="card" style="width: 26rem;">
-              <div class="card-body">
-                <%if (i == 0) { %>
-                  <h5 class="card-title">Title: <%= pages[i][j] %></h5>
-                <% } %>
-                <%if (i == 1) { %>
-                  <p class="card-text"> Total Time: <%= pages[i][j] %></p>
-                <% } %>
-                <%if (i == 2) { %>
-                  <p class="card-text"> Active Time: <%= pages[i][j] %></p>
-                <% } %>
-                <%if (i == 3) { %>
-                  <a href="<%= pages[i][j] %>" class="btn btn-primary">Find this link</a>
-                <% } %>
+        <% if (pages[0]) { %>
+          <% for(var j=0; j < pages[0].length ; j++) { %>
+            <% for(var i=0; i < pages.length; i++) { %>
+              <div class="card" style="width: 26rem;">
+                <div class="card-body">
+                  <%if (i == 0) { %>
+                    <h5 class="card-title">Title: <%= pages[i][j] %></h5>
+                  <% } %>
+                  <%if (i == 1) { %>
+                    <p class="card-text"> Total Time: <%= pages[i][j] %></p>
+                  <% } %>
+                  <%if (i == 2) { %>
+                    <p class="card-text"> Active Time: <%= pages[i][j] %></p>
+                  <% } %>
+                  <%if (i == 3) { %>
+                    <a href="<%= pages[i][j] %>" class="btn btn-primary">Find this link</a>
+                  <% } %>
+                </div>
               </div>
-            </div>
+            <% } %>
           <% } %>
         <% } %>
     </ul>
